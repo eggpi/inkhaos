@@ -13,9 +13,14 @@ function DrawWatcher(options) {
 
   function xyCallback(cb) {
     return function(e) {
-      var xy = getCanvasCoordinates(e);
-      cb(xy.x, xy.y);
-      return true;
+      if (e.which == 1) {
+        var xy = getCanvasCoordinates(e);
+        cb(xy.x, xy.y);
+
+        return true;
+      }
+
+      return false;
     }
   }
 
