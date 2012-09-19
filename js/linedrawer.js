@@ -35,7 +35,7 @@ function LineDrawer(options) {
 
   var canvasCtx = canvas.getContext('2d');
   canvasCtx.strokeStyle = lineColor;
-  canvasCtx.lineWidth = initialLineWidth; 
+  canvasCtx.lineWidth = initialLineWidth;
 
   canvasCtx.beginPath();
 }
