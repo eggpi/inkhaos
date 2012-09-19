@@ -3,28 +3,17 @@ function LineDrawer(options) {
       lineColor = options.lineColor,
       initialLineWidth = options.initialLineWidth,
       minLineWidth = options.minLineWidth || 0.5;
-      lineWidthDecay = options.lineWidthDecay || Math.E;
+      lineWidthDecay = options.lineWidthDecay || 0.5;
 
-  var lineWidthDecayLog = Math.log(lineWidthDecay), nextInteger = 1.0;
-  function getLineWidthDecrease() {
-    var linesDrawnLog = Math.log(linesDrawn),
-        decay = linesDrawnLog / lineWidthDecayLog;
-
-    var decrease = 0.0;
-    if (decay >= nextInteger) decrease = 0.5;
-    return decrease;
-  }
-
-  var linesDrawn = 0;
   this.lineTo = function(x, y) {
-    linesDrawn += 1;
-
-    if (canvasCtx.lineWidth > minLineWidth) {
-      canvasCtx.lineWidth -= getLineWidthDecrease();
-    }
-
     canvasCtx.lineTo(x, y);
     canvasCtx.stroke();
+
+    if (canvasCtx.lineWidth > minLineWidth + lineWidthDecay) {
+      canvasCtx.lineWidth -= lineWidthDecay;
+    } else {
+      canvasCtx.lineWidth = minLineWidth;
+    }
 
     return canvasCtx.lineWidth;
   }
