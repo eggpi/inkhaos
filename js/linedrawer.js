@@ -5,7 +5,7 @@ function LineDrawer(options) {
       minLineWidth = options.minLineWidth || 0.5;
       lineWidthDecay = options.lineWidthDecay || Math.E;
 
-  var lineWidthDecayLog = Math.log(lineWidthDecay), nextInteger = 1.0
+  var lineWidthDecayLog = Math.log(lineWidthDecay), nextInteger = 1.0;
   function getLineWidthDecrease() {
     var linesDrawnLog = Math.log(linesDrawn),
         decay = linesDrawnLog / lineWidthDecayLog;
