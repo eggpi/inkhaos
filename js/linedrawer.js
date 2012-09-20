@@ -9,13 +9,14 @@ function LineDrawer(options) {
     canvasCtx.lineTo(x, y);
     canvasCtx.stroke();
 
+    var drawnWidth = canvasCtx.lineWidth;
     if (canvasCtx.lineWidth > minLineWidth + lineWidthDecay) {
       canvasCtx.lineWidth -= lineWidthDecay;
     } else {
       canvasCtx.lineWidth = minLineWidth;
     }
 
-    return canvasCtx.lineWidth;
+    return drawnWidth;
   }
 
   this.moveTo = function(x, y) {
