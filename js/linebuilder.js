@@ -53,13 +53,14 @@ function LineBuilder() {
 
   this.lineTo = function(x, y, width) {
     // TODO: Could just generate rectangle and rotate?
-    // TODO: Fix rectangles not being adjacent!
 
     var dx = (x - lastX), dy = (y - lastY);
     var vertices = buildRectangleVertices(x, y, width);
 
-    // CraftyBox expects the position of the center.
-    Crafty.e("Box2D").attr({x: dx/2, y: dy/2}).polygon(vertices);
+    // For polygons, Box2D uses the x and y coordinates of the position
+    // as an origin, to which all vertices are relative (in contrast with
+    // rectangles and circles, whose position refers to its center point).
+    Crafty.e("Box2D").attr({x: 0, y: 0}).polygon(vertices);
 
     lastX = x;
     lastY = y;
