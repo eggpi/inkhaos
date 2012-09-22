@@ -55,6 +55,11 @@ function LineBuilder() {
     // TODO: Could just generate rectangle and rotate?
 
     var dx = (x - lastX), dy = (y - lastY);
+
+    // magic constant -- needs tweaking
+    // avoid creating tiny polygons
+    if (dx*dx + dy*dy < 1000) return;
+
     var vertices = buildRectangleVertices(x, y, width);
 
     // For polygons, Box2D uses the x and y coordinates of the position
