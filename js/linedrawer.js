@@ -1,22 +1,10 @@
 function LineDrawer(options) {
-  var canvas = options.canvas,
-      lineColor = options.lineColor,
-      initialLineWidth = options.initialLineWidth,
-      minLineWidth = options.minLineWidth || 0.5;
-      lineWidthDecay = options.lineWidthDecay || 0.5;
+  var canvas = options.canvas, lineDef = options.lineDef;
 
-  this.lineTo = function(x, y) {
+  this.lineTo = function(x, y, width) {
+    canvasCtx.lineWidth = width;
     canvasCtx.lineTo(x, y);
     canvasCtx.stroke();
-
-    var drawnWidth = canvasCtx.lineWidth;
-    if (canvasCtx.lineWidth > minLineWidth + lineWidthDecay) {
-      canvasCtx.lineWidth -= lineWidthDecay;
-    } else {
-      canvasCtx.lineWidth = minLineWidth;
-    }
-
-    return drawnWidth;
   }
 
   this.moveTo = function(x, y) {
@@ -24,8 +12,7 @@ function LineDrawer(options) {
   }
 
   var canvasCtx = canvas.getContext('2d');
-  canvasCtx.strokeStyle = lineColor;
-  canvasCtx.lineWidth = initialLineWidth;
+  canvasCtx.strokeStyle = lineDef.style;
 
   canvasCtx.beginPath();
 }

@@ -1,5 +1,18 @@
-function LineBuilder() {
-  var lastX, lastY;
+function LineBuilder(lineDef) {
+  var lastX, lastY, lineWidth = null,
+      initialLineWidth = lineDef.initialLineWidth || 10;
+      minLineWidth = lineDef.minLineWidth || 0.5,
+      lineWidthDecay = lineDef.lineWidthDecay || 0.5;
+
+  function updateLineWidth() {
+    if (lineWidth == null) {
+      lineWidth = initialLineWidth; 
+    } else if (lineWidth > minLineWidth + lineWidthDecay) {
+      lineWidth -= lineWidthDecay;
+    } else {
+      lineWidth = minLineWidth;
+    }
+  }
 
   this.moveTo = function(x, y) {
     lastX = x;
@@ -51,23 +64,24 @@ function LineBuilder() {
     return vertices;
   }
 
-  this.lineTo = function(x, y, width) {
+  this.lineTo = function(x, y) {
     // TODO: Could just generate rectangle and rotate?
 
     var dx = (x - lastX), dy = (y - lastY);
 
     // magic constant -- needs tweaking
     // avoid creating tiny polygons
-    if (dx*dx + dy*dy < 1000) return;
+    if (dx*dx + dy*dy < 1000) return null;
 
-    var vertices = buildRectangleVertices(x, y, width);
+    updateLineWidth();
+    var vertices = buildRectangleVertices(x, y, lineWidth);
+
+    lastX = x;
+    lastY = y;
 
     // For polygons, Box2D uses the x and y coordinates of the position
     // as an origin, to which all vertices are relative (in contrast with
     // rectangles and circles, whose position refers to its center point).
-    Crafty.e("Box2D").attr({x: 0, y: 0}).polygon(vertices);
-
-    lastX = x;
-    lastY = y;
+    return Crafty.e("Segment").segment(lineDef, vertices, lineWidth);
   }
 }
