@@ -6,7 +6,7 @@ function LineBuilder(lineDef) {
 
   function updateLineWidth() {
     if (lineWidth == null) {
-      lineWidth = initialLineWidth; 
+      lineWidth = initialLineWidth;
     } else if (lineWidth > minLineWidth + lineWidthDecay) {
       lineWidth -= lineWidthDecay;
     } else {
