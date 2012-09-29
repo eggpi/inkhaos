@@ -12,10 +12,29 @@
         <script src="./js/linebuilder.js"></script>
         <script src="./js/inkhaos.js"></script>
         <link rel="stylesheet" href="./css/inkhaos.css" type="text/css"/>
+
+        <style>
+          #stylesel {
+            top: 5px;
+            left: 5px;
+            z-index: 2;
+            position: fixed;
+            font-size: 12px;
+            font-weight: bold;
+            border: 1px solid black;
+            padding: 3px 3px;
+          }
+        </style>
     </head>
     <body>
         <script>
             $(initInkhaos);
         </script>
+
+        <div id="stylesel">
+          <div><input type="radio" name="line type" checked value="black"/>Black</div>
+          <div><input type="radio" name="line type" value="glass"/>Glass</div>
+          <div><input type="radio" name="line type" value="bouncy"/>Bouncy</div>
+        </div>
     <body>
 </html>

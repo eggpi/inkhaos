@@ -44,7 +44,7 @@ function initInkhaos() {
     canvas: drawCanvas,
 
     onDrawStart: function(x, y) {
-      var lineDef = getLineDef("black");
+      var lineDef = getLineDef($("#stylesel input:checked").val());
 
       lineDrawer = new LineDrawer({canvas: drawCanvas, lineDef: lineDef});
       lineBuilder = new LineBuilder(lineDef);
