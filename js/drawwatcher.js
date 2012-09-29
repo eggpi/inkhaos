@@ -17,10 +17,10 @@ function DrawWatcher(options) {
         var xy = getCanvasCoordinates(e);
         cb(xy.x, xy.y);
 
-        return true;
+        return false;
       }
 
-      return false;
+      return true;
     }
   }
 
