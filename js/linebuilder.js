@@ -1,8 +1,8 @@
 function LineBuilder(lineDef) {
   var lastX, lastY, lineWidth = null,
-      initialLineWidth = lineDef.initialLineWidth || 10;
-      minLineWidth = lineDef.minLineWidth || 0.5,
-      lineWidthDecay = lineDef.lineWidthDecay || 0.5;
+      initialLineWidth = lineDef.initialLineWidth;
+      minLineWidth = lineDef.minLineWidth,
+      lineWidthDecay = lineDef.lineWidthDecay;
 
   function updateLineWidth() {
     if (lineWidth == null) {
