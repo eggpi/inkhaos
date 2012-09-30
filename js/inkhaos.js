@@ -26,6 +26,26 @@ function initInkhaos() {
     },
   });
 
+  Crafty.c("Bomb", {
+    init: function() {
+      this.requires("Box2D");
+    },
+
+    bomb: function(bombDef) {
+      this._power = bombDef.power;
+
+      this.onHit("Box2D", function(hitData) {
+        var other = hitData[0].obj;
+
+        if (other.length == 0 || other.has("Bomb")) {
+          bombDef.onHitBomb.call(this, other);
+        }
+      });
+
+      return this;
+    },
+  });
+
   // Create our own canvas in front of the Crafty DOM elements
   var drawCanvas = $("<canvas width=1280 height=768/>").get(0);
   $("#cr-stage").append(drawCanvas);
@@ -33,9 +53,11 @@ function initInkhaos() {
   // Spawn bomb on right mouse click
   $(drawCanvas).mousedown(function(e) {
     if (e.which == 3) {
-      Crafty.e("Box2D, DOM")
-            .attr({x: e.pageX, y: e.pageY, r: 20, type: "dynamic"})
-            .css({"background-color": "red", "border-radius": 20});
+      var bombDef = getBombDef("anarchist");
+      Crafty.e("Box2D, DOM, Bomb")
+            .attr({x: e.pageX, y: e.pageY, r: bombDef.radius, type: "dynamic"})
+            .css(bombDef.css)
+            .bomb(bombDef);
     }
   });
 
