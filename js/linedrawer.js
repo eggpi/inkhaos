@@ -13,6 +13,7 @@ function LineDrawer(options) {
 
   var canvasCtx = canvas.getContext('2d');
   canvasCtx.strokeStyle = lineDef.style;
+  canvasCtx.lineJoin = "round";
 
   canvasCtx.beginPath();
 }
