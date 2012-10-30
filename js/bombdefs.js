@@ -18,6 +18,7 @@ var _bombDefs = (function() {
 
       power: 10,
       radius: 20,
+      velocity: 10,
     }),
   };
 })();
